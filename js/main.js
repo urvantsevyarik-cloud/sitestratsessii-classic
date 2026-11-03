@@ -138,4 +138,34 @@ $$("[data-atm]").forEach(box => {
   window.addEventListener("resize", upd); upd();
 });
 
+
+/* Просмотр фото из «Атмосферы мероприятий» */
+(function () {
+  const dlg = $("#galDlg"); if (!dlg) return;
+  const opens = $$(".atm-o"), img = $("#galImg"), cnt = $("#galCnt"), prev = $(".prev", dlg), next = $(".next", dlg);
+  const thumbs = opens.map(b => $("img", b).src), fulls = opens.map(b => new URL(b.dataset.full, $("img", b).src).href);
+  let cur = 0;
+  const pre = i => { const x = new Image(); x.src = fulls[(i + fulls.length) % fulls.length]; };
+  function show(i) {
+    cur = (i + opens.length) % opens.length;
+    img.onerror = () => { img.onerror = null; img.src = thumbs[cur]; };
+    img.src = fulls[cur];
+    cnt.textContent = (cur + 1) + " из " + opens.length;
+    pre(cur + 1); pre(cur - 1);
+  }
+  opens.forEach((b, i) => b.addEventListener("click", () => { show(i); dlg.showModal(); next.focus({ preventScroll: true }); }));
+  prev.addEventListener("click", () => show(cur - 1));
+  next.addEventListener("click", () => show(cur + 1));
+  dlg.addEventListener("keydown", e => { if (e.key === "ArrowLeft") { show(cur - 1); e.preventDefault(); } else if (e.key === "ArrowRight") { show(cur + 1); e.preventDefault(); } });
+  dlg.addEventListener("click", e => { if (e.target === dlg || e.target.tagName === "FIGURE") dlg.close(); });
+  let x0 = null;
+  dlg.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+  dlg.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1)); }, { passive: true });
+  dlg.addEventListener("close", () => {
+    img.removeAttribute("src");
+    const t = $(".atm-t"), it = opens[cur] && opens[cur].closest(".atm-i");
+    if (t && it) t.scrollTo({ left: it.offsetLeft - t.offsetLeft, behavior: "auto" });
+  });
+})();
+
 })();

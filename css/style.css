@@ -638,3 +638,19 @@ footer{background:#220E40}
 @media(max-width:860px){.atm-i{flex-basis:calc((100% - 16px)/2)}}
 @media(max-width:560px){.atm-i{flex-basis:82%}.atm-b{display:none}.atm-b.prev{left:4px}.atm-b.next{right:4px}}
 @media(prefers-reduced-motion:no-preference){.atm-t{scroll-behavior:smooth}}
+
+/* ===== Просмотр фото ===== */
+.atm-o{display:block;width:100%;height:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.atm-o:focus-visible{outline:3px solid var(--brand);outline-offset:-3px}
+dialog.gal{max-width:none;width:100vw;height:100vh;max-height:none;border-radius:0;background:transparent;color:#fff;overflow:hidden}
+dialog.gal[open]{display:grid;place-items:center}
+dialog.gal::backdrop{background:rgba(12,13,15,.97)}
+dialog.gal figure{margin:0;display:grid;place-items:center;width:100%;height:100%;padding:56px 72px 64px}
+dialog.gal img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:12px;background:#1d2024;touch-action:pan-y}
+dialog.gal .x{position:absolute;top:14px;right:14px;float:none;margin:0;z-index:3;background:#fff;color:#111827}
+.gb{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:52px;height:52px;border-radius:50%;border:0;background:#fff;color:var(--brand);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.gb:hover{transform:translateY(-50%) scale(1.06)}
+.gb:focus-visible,dialog.gal .x:focus-visible{outline:3px solid var(--brand-l);outline-offset:3px}
+.gb.prev{left:14px}.gb.next{right:14px}
+.gc{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:.95rem;color:#fff;opacity:.85}
+@media(max-width:700px){dialog.gal figure{padding:64px 8px 64px}.gb{width:44px;height:44px;top:auto;bottom:10px;transform:none}.gb:hover{transform:none}.gb.prev{left:14px}.gb.next{right:14px}}
