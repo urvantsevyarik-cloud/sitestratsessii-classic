@@ -121,4 +121,21 @@ $$("[data-form]").forEach(box => {
 });
 
 
+
+/* Слайдер «Атмосфера мероприятий» */
+$$("[data-atm]").forEach(box => {
+  const t = $(".atm-t", box), prev = $(".prev", box), next = $(".next", box), cnt = $("[data-atm-n]", box.parentElement);
+  const step = () => { const i = $(".atm-i", t); return i ? i.getBoundingClientRect().width + 16 : 300; };
+  const upd = () => {
+    prev.disabled = t.scrollLeft < 4;
+    next.disabled = t.scrollLeft + t.clientWidth >= t.scrollWidth - 4;
+    if (cnt) cnt.textContent = Math.min(t.children.length, Math.round(t.scrollLeft / step()) + 1);
+  };
+  prev.addEventListener("click", () => t.scrollBy({ left: -step(), behavior: "smooth" }));
+  next.addEventListener("click", () => t.scrollBy({ left: step(), behavior: "smooth" }));
+  t.addEventListener("scroll", () => requestAnimationFrame(upd), { passive: true });
+  t.addEventListener("keydown", e => { if (e.key === "ArrowRight") { t.scrollBy({ left: step(), behavior: "smooth" }); e.preventDefault(); } if (e.key === "ArrowLeft") { t.scrollBy({ left: -step(), behavior: "smooth" }); e.preventDefault(); } });
+  window.addEventListener("resize", upd); upd();
+});
+
 })();

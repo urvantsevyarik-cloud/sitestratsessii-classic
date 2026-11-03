@@ -620,3 +620,21 @@ footer{background:#220E40}
 .sc b .sci{width:34px;height:34px;border-radius:50%;object-fit:cover;flex:none;display:inline-block}
 .kind{text-wrap:balance}
 @media(min-width:861px){.who{align-items:stretch}.who figure{aspect-ratio:auto;min-height:100%;position:relative}.who figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}}
+
+/* ===== Атмосфера мероприятий (слайдер) ===== */
+.atm-sub{margin-top:14px;color:var(--mut);font-size:1.05rem}
+.atm{position:relative;margin-top:36px}
+.atm-t{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:4px 2px 8px;border-radius:20px}
+.atm-t::-webkit-scrollbar{display:none}
+.atm-t:focus-visible{outline:3px solid var(--brand);outline-offset:4px}
+.atm-i{flex:0 0 calc((100% - 32px)/3);aspect-ratio:1/1;scroll-snap-align:start;border-radius:20px;overflow:hidden;background:var(--p2)}
+.atm-i img{width:100%;height:100%;object-fit:cover;display:block}
+.atm-b{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:48px;height:48px;border-radius:50%;border:0;background:#fff;color:var(--brand);box-shadow:0 6px 20px rgba(36,29,73,.25);display:grid;place-items:center;cursor:pointer;transition:opacity .2s,transform .2s}
+.atm-b:hover{transform:translateY(-50%) scale(1.06)}
+.atm-b:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.atm-b:disabled{opacity:0;pointer-events:none}
+.atm-b.prev{left:-16px}.atm-b.next{right:-16px}
+.atm-c{text-align:center;margin-top:16px}
+@media(max-width:860px){.atm-i{flex-basis:calc((100% - 16px)/2)}}
+@media(max-width:560px){.atm-i{flex-basis:82%}.atm-b{display:none}.atm-b.prev{left:4px}.atm-b.next{right:4px}}
+@media(prefers-reduced-motion:no-preference){.atm-t{scroll-behavior:smooth}}
